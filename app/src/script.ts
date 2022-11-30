@@ -1,3 +1,4 @@
+import "./style.css"
 import Slide from "./Slide.js";
 
 const container = document.getElementById("slide")
@@ -10,5 +11,7 @@ if(
   && elements.children.length
   && controls) {
 
-  new Slide(container, Array.from(elements.children), controls, 5000)
+  const slide = new Slide(container, Array.from(elements.children), controls, 5000)
+
+  slide.show(3)
 }

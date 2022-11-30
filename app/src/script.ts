@@ -13,5 +13,5 @@ if(
 
   const slide = new Slide(container, Array.from(elements.children), controls, 5000)
 
-  slide.show(3)
+  slide.init()
 }

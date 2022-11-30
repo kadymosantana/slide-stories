@@ -13,8 +13,14 @@ h1 {
   text-align: center;
 }
 
+#slide {
+  display: grid;
+}
+
 #slide-elements {
-  display: grid
+  display: grid;
+  grid-area: 1/1;
+
 }
 
 #slide-elements > * {
@@ -26,4 +32,16 @@ h1 {
 #slide-elements > *.active {
   opacity: 1;
   visibility: visible;
+}
+
+#slide-controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-area: 1/1;
+}
+
+#slide-controls button {
+  opacity: 0;
+  appearance: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }

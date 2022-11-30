@@ -30,4 +30,30 @@ export default class Slide {
   hide(el: Element) {
      el.classList.remove("active");
   }
+
+  prev() {
+    if(this.index > 0) this.show(this.index - 1)
+  }
+
+  next() {
+    this.index < this.slides.length - 1 ?
+    this.show(this.index + 1) :
+    this.show(0)
+  }
+
+  private addControls() {
+    const prevButton = document.createElement("button")
+    const nextButton = document.createElement("button")
+
+    this.controls.appendChild(prevButton)
+    this.controls.appendChild(nextButton)
+
+    prevButton.addEventListener("pointerup", () => this.prev())
+    nextButton.addEventListener("pointerup", () => this.next())
+  }
+
+  private init() {
+    this.addControls()
+    this.show(this.index)
+  }
 }

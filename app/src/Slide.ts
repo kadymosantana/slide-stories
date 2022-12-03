@@ -35,13 +35,35 @@ export default class Slide {
   show(index: number) {
     this.index = index;
     this.slide = this.slides[index];
+
+    localStorage.setItem("activeSlide", String(this.index));
+
     this.slides.forEach((el) => this.hide(el));
     this.slide.classList.add("active");
-    this.auto(this.time);
+
+    this.slide instanceof HTMLVideoElement
+      ? this.autoVideo(this.slide)
+      : this.auto(this.time);
+  }
+
+  autoVideo(video: HTMLVideoElement) {
+    let firstPlay = true;
+
+    video.addEventListener("playing", () => {
+      this.auto(video.duration * 1000);
+      firstPlay = false;
+    });
+
+    video.muted = true;
+    video.play();
   }
 
   hide(el: Element) {
     el.classList.remove("active");
+
+    if (el instanceof HTMLVideoElement) {
+      el.currentTime = 0;
+    }
   }
 
   auto(time: number) {
@@ -65,6 +87,8 @@ export default class Slide {
     this.pausedTimeout = new Timeout(() => {
       this.timeout?.pause();
       this.paused = true;
+
+      if (this.slide instanceof HTMLVideoElement) this.slide.pause();
     }, 1000);
   }
 
@@ -73,6 +97,10 @@ export default class Slide {
     if (this.paused) {
       this.paused = false;
       this.timeout?.continue();
+
+      if (this.slide instanceof HTMLVideoElement) {
+        this.slide.play();
+      }
     }
   }
 
@@ -92,6 +120,9 @@ export default class Slide {
 
   private init() {
     this.addControls();
-    this.show(this.index);
+    
+    localStorage.activeSlide
+      ? this.show(+localStorage.activeSlide)
+      : this.show(this.index);
   }
 }

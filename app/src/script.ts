@@ -10,6 +10,6 @@ if (container && elements && elements.children.length && controls) {
     container,
     Array.from(elements.children),
     controls,
-    5000
+    3000
   );
 }

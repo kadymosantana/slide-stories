@@ -17,7 +17,7 @@ export default class Slide {
     container: Element,
     slides: Element[],
     controls: Element,
-    time: number = 5000
+    time: number = 3000
   ) {
     this.container = container;
     this.slides = slides;
@@ -61,7 +61,7 @@ export default class Slide {
     let firstPlay = true;
 
     video.addEventListener("playing", () => {
-      this.auto(video.duration * 1000);
+      if (firstPlay) this.auto(video.duration * 1000);
       firstPlay = false;
     });
 
@@ -98,7 +98,7 @@ export default class Slide {
 
   pause() {
     document.body.classList.add("paused");
-    
+
     this.pausedTimeout = new Timeout(() => {
       this.timeout?.pause();
       this.paused = true;

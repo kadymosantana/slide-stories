@@ -38,10 +38,48 @@ h1 {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-area: 1/1;
+  position: relative;
 }
 
 #slide-controls button {
   opacity: 0;
   appearance: none;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+
+#slide-thumb {
+  display: flex;
+  position: absolute;
+  width: 100%;
+  pointer-events: none;
+}
+
+#slide-thumb > span {
+  display: block;
+  flex: 1;
+  height: 4px;
+  background-color: rgba(255, 255, 255, .2);
+  border-radius: 8px;
+  margin: 5px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+#slide-thumb .thumb-item.active {
+  display: block;
+  height: inherit;
+  background: rgba(255, 255, 255, .9);
+  transform: translateX(-100%);
+  animation: thumb forwards linear running;
+}
+
+#slide-thumb .thumb-item.paused {
+  animation-play-state: paused;
+}
+
+@keyframes thumb {
+  to {
+    transform: initial;
+  }
 }

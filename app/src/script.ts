@@ -12,4 +12,5 @@ if (container && elements && elements.children.length && controls) {
     controls,
     3000
   );
+  console.log(slide);
 }
